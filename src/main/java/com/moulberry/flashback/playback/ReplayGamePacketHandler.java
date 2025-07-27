@@ -262,6 +262,8 @@ public class ReplayGamePacketHandler implements ClientGamePacketListener {
         serverPlayer.recreateFromPacket(addEntityPacket);
         try {
             this.replayServer.getPlayerList().placeNewPlayer(connection, serverPlayer, commonListenerCookie);
+        } catch (UnsupportedOperationException e) {
+            Flashback.LOGGER.error("Failed to spawn player due to UnsupportedOperationException", e);
         } catch (Exception e) {
             this.replayServer.failedToSpawnPlayerWarning = true;
             Flashback.LOGGER.error("Failed to spawn player", e);
