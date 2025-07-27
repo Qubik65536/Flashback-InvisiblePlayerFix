@@ -1129,7 +1129,11 @@ public class ReplayServer extends IntegratedServer {
         }
 
         // Tick underlying server
-        super.tickServer(booleanSupplier);
+        try {
+            super.tickServer(booleanSupplier);
+        } catch (UnsupportedOperationException e) {
+            Flashback.LOGGER.error("Tickserver failed due to UnsupportedOperationException", e);
+        }
 
         // Apply block changes
         applyBlockOverridesToTimeline();
